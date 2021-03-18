@@ -23,19 +23,19 @@ func main() {
 	fmt.Println(factors[3])
 	printFather(factors[0])
 	printFatherAncestors(factors[1], factors[2])
-	printMother(factors[2])
+	printMother(factors[1])
 
 	fmt.Println(factors[2])
 	printFather(factors[0])
 	printFatherAncestors(factors[1], factors[2])
 	printMother(factors[3])
-	printMotherAncestors(factors[0], factors[2])
+	printMotherAncestors(factors[0], factors[1])
 
 	fmt.Println(factors[1])
 	printFather(factors[2])
 	printFatherAncestors(factors[0], factors[3])
 	printMother(factors[3])
-	printMotherAncestors(factors[0], factors[2])
+	printMotherAncestors(factors[0], factors[1])
 
 	fmt.Println(factors[0])
 	printFather(factors[1])
