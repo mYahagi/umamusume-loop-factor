@@ -5,6 +5,11 @@ import (
 	"fmt"
 )
 
+type parents struct {
+	father string
+	mother string
+}
+
 func main() {
 	flag.Parse()
 	factors := flag.Args()
@@ -14,35 +19,52 @@ func main() {
 		return
 	}
 
-	fmt.Println(factors[0])
-	printFather(factors[1])
-	printMother(factors[2])
+	pedigree := map[string]parents{}
+
+	pedigree[factors[0]] = parents{
+		father: factors[1],
+		mother: factors[2],
+	}
+	printPedigree(factors[0], pedigree)
 
 	fmt.Println("----- 以降ここから繰り返し -----")
 
-	fmt.Println(factors[3])
-	printFather(factors[0])
-	printFatherAncestors(factors[1], factors[2])
-	printMother(factors[1])
+	pedigree[factors[3]] = parents{
+		father: factors[0],
+		mother: factors[1],
+	}
+	printPedigree(factors[3], pedigree)
 
-	fmt.Println(factors[2])
-	printFather(factors[0])
-	printFatherAncestors(factors[1], factors[2])
-	printMother(factors[3])
-	printMotherAncestors(factors[0], factors[1])
+	pedigree[factors[2]] = parents{
+		father: factors[0],
+		mother: factors[3],
+	}
+	printPedigree(factors[2], pedigree)
 
-	fmt.Println(factors[1])
-	printFather(factors[2])
-	printFatherAncestors(factors[0], factors[3])
-	printMother(factors[3])
-	printMotherAncestors(factors[0], factors[1])
+	pedigree[factors[1]] = parents{
+		father: factors[2],
+		mother: factors[3],
+	}
+	printPedigree(factors[1], pedigree)
 
-	fmt.Println(factors[0])
-	printFather(factors[1])
-	printFatherAncestors(factors[2], factors[3])
-	printMother(factors[2])
-	printMotherAncestors(factors[0], factors[3])
+	printPedigree(factors[0], pedigree)
 	fmt.Println("----- ここまで繰り返し -----")
+}
+
+func printPedigree(target string, pedigree map[string]parents) {
+	fmt.Println(target)
+
+	printFather(pedigree[target].father)
+	value, isThere := pedigree[pedigree[target].father]
+	if isThere {
+		printFatherAncestors(value.father, value.mother)
+	}
+
+	printMother(pedigree[target].mother)
+	value, isThere = pedigree[pedigree[target].mother]
+	if isThere {
+		printMotherAncestors(value.father, value.mother)
+	}
 }
 
 func printFather(father string) {
