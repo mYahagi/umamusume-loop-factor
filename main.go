@@ -21,13 +21,13 @@ func main() {
 
 	pedigree := map[string]parents{}
 
+	fmt.Println("----- 子->親の組み合わせパターン構築開始 -----")
+
 	pedigree[factors[0]] = parents{
 		father: factors[1],
 		mother: factors[2],
 	}
 	printPedigree(factors[0], pedigree)
-
-	fmt.Println("----- 以降ここから繰り返し -----")
 
 	pedigree[factors[3]] = parents{
 		father: factors[0],
@@ -48,7 +48,8 @@ func main() {
 	printPedigree(factors[1], pedigree)
 
 	printPedigree(factors[0], pedigree)
-	fmt.Println("----- ここまで繰り返し -----")
+
+	fmt.Println("----- 組み合わせパターン構築完了 -----")
 }
 
 func printPedigree(target string, pedigree map[string]parents) {
