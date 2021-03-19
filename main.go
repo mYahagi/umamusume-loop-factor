@@ -58,13 +58,13 @@ func printPedigree(target string, pedigree map[string]parents) {
 	printFather(pedigree[target].father)
 	value, isThere := pedigree[pedigree[target].father]
 	if isThere {
-		printFatherAncestors(value.father, value.mother)
+		printFatherGrandParents(value.father, value.mother)
 	}
 
 	printMother(pedigree[target].mother)
 	value, isThere = pedigree[pedigree[target].mother]
 	if isThere {
-		printMotherAncestors(value.father, value.mother)
+		printMotherGrandParents(value.father, value.mother)
 	}
 }
 
@@ -72,7 +72,7 @@ func printFather(father string) {
 	fmt.Println("   ├─  " + father)
 }
 
-func printFatherAncestors(grantFather, grantMother string) {
+func printFatherGrandParents(grantFather, grantMother string) {
 	fmt.Println("   │         ├─" + grantFather)
 	fmt.Println("   │         └─" + grantMother)
 }
@@ -81,7 +81,7 @@ func printMother(mother string) {
 	fmt.Println("   └─  " + mother)
 }
 
-func printMotherAncestors(grantFather, grantMother string) {
+func printMotherGrandParents(grantFather, grantMother string) {
 	fmt.Println("             ├─" + grantFather)
 	fmt.Println("             └─" + grantMother)
 }
